@@ -8,7 +8,7 @@ class User(models.Model):
     password = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.name
+        return self.userName
 
 class Account(models.Model):
     accountName = models.CharField(max_length=50)
@@ -17,7 +17,7 @@ class Account(models.Model):
     userName = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.accountName
 
 class Category(models.Model):
     categoryName = models.CharField(max_length=50)
@@ -25,10 +25,15 @@ class Category(models.Model):
     userName = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.categoryName
 
 class Transaction(models.Model):
-    transactionType = models.CharField(max_length=50)
+    TYPE_CHOICES = [
+        ('income', 'Income'),
+        ('expense', 'Expense'),
+    ]
+    transactionTitle = models.CharField(max_length=50)
+    transactionType = models.CharField(max_digits=50, choices=TYPE_CHOICES)
     transactionAmount = models.DecimalField(max_digits=10, decimal_places=2)
     transactionDate = models.DateField()
     accountName = models.ForeignKey(Account, on_delete=models.CASCADE)
@@ -37,4 +42,4 @@ class Transaction(models.Model):
     description = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.name
+        return self.transactionTitle
