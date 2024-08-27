@@ -33,9 +33,9 @@ class Transaction(models.Model):
         ('expense', 'Expense'),
     ]
     transactionTitle = models.CharField(max_length=50)
-    transactionType = models.CharField(max_digits=50, choices=TYPE_CHOICES)
-    transactionAmount = models.DecimalField(max_digits=10, decimal_places=2)
-    transactionDate = models.DateField()
+    transactionType = models.CharField(max_length=50, choices=TYPE_CHOICES)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateField(auto_now_add=True)
     accountName = models.ForeignKey(Account, on_delete=models.CASCADE)
     categoryName = models.ForeignKey(Category, on_delete=models.CASCADE)
     shopName = models.CharField(max_length=50)
